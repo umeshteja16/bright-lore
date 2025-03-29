@@ -1,0 +1,32 @@
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #fce7d8;
+  --color-secondary: #15252d;
+  /* --color-background: #fce7d8; */
+  --color-text: #fc5200;
+  --color-box-blue: #005aaf;
+}
+
+@font-face {
+  font-family: "Aeonik";
+  src: url("/src/assets/fonts/Aeonik-Regular.woff2") format("woff2"),
+    url("/src/assets/fonts/Aeonik-Regular.woff") format("woff"); /* Fallback for older browsers */
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Aeonik";
+  src: url("/src/assets/fonts/Aeonik-Bold.woff2") format("woff2"),
+    url("/src/assets/fonts/Aeonik-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+
+body {
+  font-family: "Aeonik", sans-serif;
+}

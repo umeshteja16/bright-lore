@@ -1,0 +1,28 @@
+/* .bg-primary {
+  @apply bg-[var(--color-primary)];
+}
+
+.bg-secondary {
+  @apply bg-[var(--color-secondary)];
+}
+
+.bg-screen {
+  @apply bg-[var(--color-background)];
+} */
+
+.heading {
+  color: var(--color-text);
+}
+
+.sub-heading {
+  color: var(--color-primary);
+}
+
+.home-btn-1 {
+  background-color: var(--color-text);
+  color: var(--color-secondary);
+}
+.home-btn-2 {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+}

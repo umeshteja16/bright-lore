@@ -1,0 +1,23 @@
+/* .logo {
+  @apply mx-7 my-4 border rounded-full overflow-hidden;
+} */
+
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
+
+.text-primary {
+  color: var(--color-primary);
+}
+.text-secondary {
+  color: var(--color-secondary);
+}
+
+.border-color {
+  border-color: var(--color-primary);
+  border-width: 1.3px;
+}
