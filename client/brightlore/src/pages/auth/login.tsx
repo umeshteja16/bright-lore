@@ -1,18 +1,61 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./auth.css";
 import { useNavigate } from "react-router-dom";
-import PasswordInput from "./passwordInput";
+import PasswordInput from "./PasswordInput";
 import EmailInput from "./EmailInput";
 import loginLogo from "../../assets/login-logo.jpg";
-const login = () => {
+import { validateEmail } from "../../utils/helper";
+import SignInWithGoogle from "./signInWithGoogle";
+import LoggedIn from "./LoggedIn";
+
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
+  const [user, setUser] = useState(null);
+  const [errorType, setErrorType] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const handleLogin = async () => {
-    //HandleLogin
-    //Login API
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(email, password);
+    if (!validateEmail(email)) {
+      setError("Invalid Email");
+      setErrorType("email");
+      return;
+    }
+
+    if (!password) {
+      setError("Password cannot be empty");
+      setErrorType("password");
+      return;
+    }
+    setErrorType("");
+    setError(null);
+    console.log("Signup Data:", { email, password });
+
+    // Handle Login API Call
   };
+  // const handleGoogleLogin = async () => {
+  //   try {
+  //     const user: any = await loginWithGoogle();
+  //     if (user) {
+  //       setUser(user);
+  //       navigate("/loggedin");
+  //     }
+  //   } catch (err) {
+  //     console.error("Google Login Failed:", err);
+  //   }
+  // };
+  // useEffect(() => {
+  //   console.log("Google user:", user);
+  // }, [user]);
+  const handleGoogleLogin = (user: any) => {
+    setUser(user);
+    navigate("/loggedin"); // ✅ Navigate after login
+  };
+
   return (
     <div className="auth-background min-h-screen flex flex-col items-center justify-center px-4">
       <img
@@ -20,25 +63,7 @@ const login = () => {
         alt="Login logo"
         className="h-24 sm:h-32 md:h-40 lg:h-48 w-auto"
       />
-      <div className="flex items-center rounded-lg bg-white p-6 sm:max-w-sm lg:max-w-lg w-full">
-        <button
-          type="button"
-          className="w-full flex items-center justify-center gap-3 border border-gray-200 rounded-md px-4 py-2 text-md text-gray-700 font-medium hover:shadow-lg hover:border-gray-400 active:scale-95 cursor-pointer transition"
-        >
-          <img
-            src="https://www.svgrepo.com/show/475656/google-color.svg"
-            alt="Google logo"
-            className="w-5 h-5"
-          />
-          Continue with Google
-        </button>
-      </div>
-      <div className="flex items-center rounded-lg bg-white p-6 sm:max-w-sm lg:max-w-lg w-full">
-        <div className="flex-grow h-px bg-gray-300"></div>
-        <span className="mx-4 text-gray-500 text-sm">or</span>
-        <div className="flex-grow h-px bg-gray-300"></div>
-      </div>
-      <div className="flex sm:flex-row items-center text-center sm:text-left gap-2 sm:space-x-6 md:space-x-10 mb-2">
+      <div className="flex sm:flex-row items-center text-center sm:text-left gap-2 sm:space-x-6 md:space-x-10 my-5">
         <h1 className="sm:text-2xl lg:text-4xl text-gray-700 sm:font-medium lg:font-semibold">
           Sign in
         </h1>
@@ -49,6 +74,12 @@ const login = () => {
           </a>
         </h2>
       </div>
+      <SignInWithGoogle onLogin={handleGoogleLogin} />
+      <div className="flex items-center rounded-lg bg-white p-6 sm:max-w-sm lg:max-w-lg w-full">
+        <div className="flex-grow h-px bg-gray-300"></div>
+        <span className="mx-4 text-gray-500 text-sm">or</span>
+        <div className="flex-grow h-px bg-gray-300"></div>
+      </div>
 
       <div className="rounded-lg bg-white p-6 sm:max-w-sm lg:max-w-lg mx-auto w-full">
         <form onSubmit={handleLogin}>
@@ -56,24 +87,33 @@ const login = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          {errorType === "email" && (
+            <p className="text-red-500 text-xs pb-1">{error}</p>
+          )}
           <PasswordInput
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          {errorType === "password" && (
+            <p className="text-red-500 text-xs pb-1">{error}</p>
+          )}
+          <h2 className="text-gray-600 font-bold my-1 text-[13px] sm:text-lg lg:text-[15px]">
+            <a href="/forgot-password" className="underline">
+              Forgot password?
+            </a>
+          </h2>
+          <button
+            type="submit"
+            className="w-full flex items-center justify-center gap-3 border border-gray-200 rounded-md px-4 py-2 text-gray-700 sm:text-md sm:font-semibold lg:text-lg lg:font-bold
+            hover:shadow-lg hover:scale-105 hover:border-gray-300 hover:bg-gray-100 
+            active:scale-95 cursor-pointer transition duration-200 ease-in-out"
+          >
+            Sign in
+          </button>
         </form>
-      </div>
-      <div className="flex items-center rounded-lg bg-white p-6 sm:max-w-sm lg:max-w-lg w-full">
-        <button
-          type="button"
-          className="w-full flex items-center justify-center gap-3 border border-gray-200 rounded-md px-4 py-2 text-gray-700 sm:text-md sm:font-semibold lg:text-lg lg:font-bold
-      hover:shadow-lg hover:scale-105 hover:border-gray-300 hover:bg-gray-100 
-      active:scale-95 cursor-pointer transition duration-200 ease-in-out"
-        >
-          Sign in
-        </button>
       </div>
     </div>
   );
 };
 
-export default login;
+export default Login;

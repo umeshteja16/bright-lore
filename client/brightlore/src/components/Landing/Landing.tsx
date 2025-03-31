@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import "./Home.css";
+import "./Landing.css";
 import About from "./About";
 import Navbar from "../Navbar/Navbar";
+import { Link } from "react-router-dom";
 
 declare global {
   interface Window {
@@ -10,7 +11,7 @@ declare global {
   }
 }
 
-const Home = () => {
+const Landing = () => {
   const vantaRef = useRef(null);
   const [vantaEffect, setVantaEffect] = useState<any>(null);
 
@@ -30,7 +31,7 @@ const Home = () => {
           color: 0xfce7d8,
           color2: 0xfce7d8,
           size: 1.0,
-          backgroundColor: 0x14141f,
+          backgroundColor: 0x141414, // Matte black
         })
       );
     }
@@ -72,10 +73,18 @@ const Home = () => {
             </p>
 
             <div className="flex space-x-5 mt-4">
-              <button className="h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-lg cursor-pointer font-bold rounded-full home-btn-1 border border-color hover:bg-primary hover:text-white transition">
-                Ignite Learning
-              </button>
-              <button className="h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-lg cursor-pointer font-bold rounded-full home-btn-2 border border-color hover:bg-secondary hover:bg-opacity-80 transition">
+              <Link to="/login">
+                <button className="h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-lg cursor-pointer font-bold rounded-full home-btn-1 border home-hover">
+                  Ignite Learning
+                </button>
+              </Link>
+              <button
+                onClick={() => {
+                  const el = document.getElementById("bottom");
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-lg cursor-pointer font-bold rounded-full home-btn-2 border home-border-color home-hover"
+              >
                 Contribute
               </button>
             </div>
@@ -83,10 +92,12 @@ const Home = () => {
         </div>
 
         {/* 🔷 Bottom Half: Form Section Placeholder */}
-        <About />
+        <div id="bottom">
+          <About />
+        </div>
       </div>
     </>
   );
 };
 
-export default Home;
+export default Landing;

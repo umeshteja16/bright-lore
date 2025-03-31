@@ -1,7 +1,5 @@
 @import "tailwindcss";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@config "../tailwind.config.js";
 
 :root {
   --color-primary: #fce7d8;
@@ -9,6 +7,13 @@
   /* --color-background: #fce7d8; */
   --color-text: #fc5200;
   --color-box-blue: #005aaf;
+  --color-matt-black: #141414;
+  --color-ash: 63, 68, 84; /* RGB format for rgba */
+  --color-frost: #3f4454;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 @font-face {
@@ -29,4 +34,18 @@
 
 body {
   font-family: "Aeonik", sans-serif;
+}
+
+.bg-matt-black {
+  background-color: var(--color-matt-black);
+}
+
+.new-tab-button {
+  background-color: rgba(var(--color-frost), 0.4); /* translucent */
+  backdrop-filter: blur(20px);
+}
+
+.new-tab-button:hover {
+  background-color: rgba(var(--color-ash), 0.4); /* translucent */
+  backdrop-filter: blur(20px);
 }
