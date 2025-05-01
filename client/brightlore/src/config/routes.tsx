@@ -7,4 +7,5 @@ export const ROUTES = {
   login: "/login",
   signup: "/signup",
   loggedin: "/LoggedIn",
+  stars: "/stars",
 };

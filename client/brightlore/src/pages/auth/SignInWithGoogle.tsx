@@ -1,6 +1,6 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import React from "react";
-import { auth } from "../../components/Firebase";
+import { auth } from "../auth/Firebase/Firebase";
 
 interface Props {
   onLogin: (user: any) => void;

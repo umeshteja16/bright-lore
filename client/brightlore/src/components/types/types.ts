@@ -1,7 +1,6 @@
 export interface SearchbarProps {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSearch: () => void;
   onClearSearch: () => void;
 }
 
@@ -11,5 +10,5 @@ export interface SearchChangeEvent
 export interface PaperProps {
   title: string;
   image: string;
-  year: number;
+  type: string;
 }

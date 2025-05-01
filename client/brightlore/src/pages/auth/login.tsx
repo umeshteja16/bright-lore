@@ -5,8 +5,7 @@ import PasswordInput from "./PasswordInput";
 import EmailInput from "./EmailInput";
 import loginLogo from "../../assets/login-logo.jpg";
 import { validateEmail } from "../../utils/helper";
-import SignInWithGoogle from "./signInWithGoogle";
-import LoggedIn from "./LoggedIn";
+import SignInWithGoogle from "./SignInWithGoogle";
 
 const Login = () => {
   const [email, setEmail] = useState("");

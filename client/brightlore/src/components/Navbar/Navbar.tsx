@@ -69,24 +69,21 @@ const Navbar = () => {
         {/* Ignite Learning Button */}
         <div className="mt-2 sm:mt-0 flex border border-color bg-main rounded-full overflow-hidden h-12 sm:h-14 font-bold transition">
           <NavLink
-            to="/login"
-            className="bg-secondary text-primary flex items-center justify-center w-full h-full px-4 sm:px-6 text-sm sm:text-lg nav-hover text-center cursor-pointer"
+            to="/exams"
+            className="bg-secondary text-primary flex items-center justify-center w-full h-full px-4 sm:px-6 text-sm sm:text-lg nav-hover text-center sm:h-14 cursor-pointer font-bold rounded-full home-btn-1 border home-hover"
           >
-            Ignite Learning
+            Start Exploring
           </NavLink>
         </div>
 
         {/* Contribute Button */}
         <div className="mt-2 sm:mt-0 flex border border-color bg-main rounded-full overflow-hidden h-12 sm:h-14 font-bold transition">
-          <button
-            onClick={() => {
-              const el = document.getElementById("bottom");
-              if (el) el.scrollIntoView({ behavior: "smooth" });
-            }}
+          <NavLink
+            to="/login"
             className="bg-secondary text-primary flex items-center justify-center w-full h-full px-4 sm:px-6 text-sm sm:text-lg nav-hover text-center cursor-pointer"
           >
             Contribute
-          </button>
+          </NavLink>
         </div>
       </div>
     </div>

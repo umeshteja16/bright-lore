@@ -10,6 +10,7 @@
   --color-matt-black: #141414;
   --color-ash: 63, 68, 84; /* RGB format for rgba */
   --color-frost: #3f4454;
+  --color-black: #282828;
 }
 
 html {
@@ -38,6 +39,9 @@ body {
 
 .bg-matt-black {
   background-color: var(--color-matt-black);
+}
+.bg-chat-black {
+  background-color: var(--color-black);
 }
 
 .new-tab-button {

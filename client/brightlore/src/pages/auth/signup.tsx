@@ -6,7 +6,8 @@ import EmailInput from "./EmailInput";
 import loginLogo from "../../assets/login-logo.jpg";
 import { validateEmail } from "../../utils/helper";
 import NameInput from "./NameInput";
-import SignInWithGoogle from "./signInWithGoogle";
+import SignInWithGoogle from "./SignInWithGoogle";
+import { signUpWithEmail } from "./Firebase/FirebaseAuth";
 
 const Signup = () => {
   const [username, setUserName] = useState("");
@@ -47,6 +48,13 @@ const Signup = () => {
     setErrorType("");
     setError("");
     console.log("Signup Data:", { username, email, password });
+    try {
+      const userCredential = await signUpWithEmail(email, password);
+      console.log("Signed up:", userCredential.user);
+      navigate("/loggedin");
+    } catch (error: any) {
+      console.error("Sign-up error:", error.message);
+    }
     // Handle Signup API Call
   };
 
@@ -68,7 +76,7 @@ const Signup = () => {
           </a>
         </h2>
       </div>
-      <SignInWithGoogle />
+      <SignInWithGoogle onLogin={() => {}} />
       <div className="flex items-center rounded-lg bg-white p-6 sm:max-w-sm lg:max-w-lg w-full">
         <div className="flex-grow h-px bg-gray-300"></div>
         <span className="mx-4 text-gray-500 text-sm">or</span>

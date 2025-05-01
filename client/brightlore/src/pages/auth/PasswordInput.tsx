@@ -11,7 +11,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ value, onChange }) => {
     <div className="flex items-center input-box border-1 rounded-lg px-3 focus-within:border-2">
       <CiLock className="text-base sm:text-lg md:text-xl lg:text-2xl" />
       <input
-        type="text"
+        type="password"
         placeholder="Password"
         value={value}
         onChange={onChange}

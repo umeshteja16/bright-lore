@@ -7,15 +7,8 @@ import "./Searchbar.css";
 const Searchbar: React.FC<SearchbarProps> = ({
   value,
   onChange,
-  handleSearch,
   onClearSearch,
 }) => {
-  const handleKeyDown = (e: { key: string; preventDefault: () => void }) => {
-    if (e.key === "Enter" || e.key === "NumpadEnter") {
-      e.preventDefault(); // Prevents accidental form submissions
-      handleSearch();
-    }
-  };
   return (
     <div
       className={`${
@@ -32,7 +25,6 @@ const Searchbar: React.FC<SearchbarProps> = ({
         } py-[11px] outline-none text-white`}
         value={value}
         onChange={onChange}
-        onKeyDown={handleKeyDown}
       />
       {value && (
         <IoMdClose
@@ -41,10 +33,7 @@ const Searchbar: React.FC<SearchbarProps> = ({
         />
       )}
       {!value && (
-        <FaMagnifyingGlass
-          onClick={handleSearch}
-          className="text-slate-400 cursor-pointer hover:text-black"
-        />
+        <FaMagnifyingGlass className="text-slate-400 cursor-pointer hover:text-black" />
       )}
     </div>
   );
