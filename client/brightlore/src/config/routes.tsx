@@ -6,6 +6,6 @@ export const ROUTES = {
   interview: "interview",
   login: "/login",
   signup: "/signup",
-  loggedin: "/LoggedIn",
+  profile: "/profile",
   stars: "/stars",
 };

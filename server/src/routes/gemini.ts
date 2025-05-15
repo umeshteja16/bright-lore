@@ -14,7 +14,7 @@ const genAI = new GoogleGenerativeAI(apiKey);
 const fileManager = new GoogleAIFileManager(apiKey);
 
 export const model = genAI.getGenerativeModel({
-  model: "gemini-1.5-pro",
+  model: "gemini-2.5-pro-exp-03-25",
 });
 
 export const generationConfig = {

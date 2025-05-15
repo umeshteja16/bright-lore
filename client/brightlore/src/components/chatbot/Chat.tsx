@@ -5,7 +5,6 @@ import Markdown from "../Markdown/Markdown";
 import axiosInstance from "../../utils/axiosInstance";
 import { useAuth } from "../../pages/auth/AuthProvider"; // Adjust path if needed
 import { toast } from "sonner"; // ✅ Sonner toast
-import { blackToast } from "../../utils/toastUtils"; // adjust path
 
 interface ChatProps {
   startChat: () => void;

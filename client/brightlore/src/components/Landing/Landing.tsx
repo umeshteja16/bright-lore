@@ -128,7 +128,7 @@ const Landing = () => {
               paper you upload, every answer you seek, every moment you invest
               helps build a smarter learning space for all.
             </p>
-            <Link to="/dashboard">
+            <Link to="/profile">
               <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-medium transition duration-200 cursor-pointer">
                 Start Exploring Now
               </button>

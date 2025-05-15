@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Landing from "./components/Landing/Landing";
-import Login from "./pages/auth/Login";
-import Signup from "./pages/auth/Signup";
+import Login from "./pages/auth/login";
+import Signup from "./pages/auth/signup";
 import LoggedIn from "./pages/auth/LoggedIn";
 import { ROUTES } from "./config/routes";
 import Exam from "./components/Exam/Exam";
