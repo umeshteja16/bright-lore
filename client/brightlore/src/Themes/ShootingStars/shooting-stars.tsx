@@ -156,7 +156,7 @@ export const ShootingStars: React.FC<ShootingStarsProps> = ({
   };
 
   // Debug output
-  console.log(`Current stars count: ${stars.length}`);
+  // console.log(`Current stars count: ${stars.length}`);
 
   return (
     <svg

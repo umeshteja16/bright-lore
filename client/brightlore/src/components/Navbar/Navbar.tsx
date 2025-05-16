@@ -82,7 +82,7 @@ const Navbar = () => {
             to="/login"
             className="bg-secondary text-primary flex items-center justify-center w-full h-full px-4 sm:px-6 text-sm sm:text-lg nav-hover text-center cursor-pointer"
           >
-            Contribute
+            Join BrightLore
           </NavLink>
         </div>
       </div>

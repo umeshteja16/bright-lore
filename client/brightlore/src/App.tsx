@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Landing from "./components/Landing/Landing";
 import Login from "./pages/auth/login";
 import Signup from "./pages/auth/signup";
-import LoggedIn from "./pages/auth/LoggedIn";
+import Profile from "./pages/auth/Profile";
 import { ROUTES } from "./config/routes";
 import Exam from "./components/Exam/Exam";
 import PaperView from "./components/PaperView/PaperView";
@@ -44,7 +44,7 @@ function App() {
       <Route path={ROUTES.interview} element={<Interview />} />
       <Route path={ROUTES.login} element={<Login />} />
       <Route path={ROUTES.signup} element={<Signup />} />
-      <Route path={ROUTES.loggedin} element={<LoggedIn />} />
+      <Route path={ROUTES.profile} element={<Profile />} />
       <Route path={ROUTES.stars} element={<Stars />} />
     </Routes>
   );

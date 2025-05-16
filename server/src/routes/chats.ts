@@ -1,4 +1,5 @@
 import { Router, Request, Response } from "express";
+import multer from "multer";
 import {
   uploadToGemini,
   waitForFilesActive,
@@ -10,7 +11,6 @@ import fs from "node:fs";
 import axios from "axios";
 
 const chats = Router();
-let uploadedFiles: { name: string; uri: string }[] = [];
 
 const FileUpload = async (url: string, localPath: string) => {
   const response = await axios.get(url, { responseType: "arraybuffer" });
@@ -20,21 +20,34 @@ const FileUpload = async (url: string, localPath: string) => {
   return files;
 };
 
-// Start chat
-chats.post("/start-chat", async (req: Request, res: Response): Promise<any> => {
+const upload = multer({ dest: "uploads/" });
+let uploadedFiles: { name: string; uri: string }[] = [];
+
+// ✅ Unified: Accept either URL or file
+chats.post("/start-chat", upload.single("file"), async (req: Request, res: Response) => {
   try {
-    const url = req.body.url;
-    uploadedFiles = await FileUpload(url, "uploads/temp.pdf");
-    return res.status(200).json({
-      message: "file uploaded successfully",
-      error: false,
-    });
-  } catch (error) {
-    return res
-      .status(500)
-      .json({ error: "Something went wrong on the server" });
+    const tempPath = "uploads/temp.pdf";
+
+    if (req.file) {
+      fs.renameSync(req.file.path, tempPath);
+    } else if (req.body.url) {
+      const response = await axios.get(req.body.url, { responseType: "arraybuffer" });
+      fs.writeFileSync(tempPath, response.data);
+    } else {
+      res.status(400).json({ message: "No file or URL provided" });
+      return;
+    }
+
+    uploadedFiles = [await uploadToGemini(tempPath, "application/pdf")];
+    await waitForFilesActive(uploadedFiles);
+
+    res.status(200).json({ message: "Chat started", file: "/uploads/temp.pdf" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to start chat", error: true });
   }
 });
+
 
 // Continue chatting
 chats.post("/chatting", async (req: Request, res: Response): Promise<any> => {

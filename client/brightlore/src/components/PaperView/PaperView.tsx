@@ -1,71 +1,74 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Chat from "../chatbot/Chat";
-import axiosInstance from "../../utils/axiosInstance";
 
 const PaperView = () => {
   const { state } = useLocation();
-  const { file } = state || {}; // Destructure file from the state
+  const fileFromState = state?.file;
+  const titleFromState = state?.title || "Untitled Paper";
+  const idFromState = state?.id || Date.now();
 
+  const [fileUrl, setFileUrl] = useState<string | null>(
+    fileFromState || localStorage.getItem("lastUploadedFile")
+  );
   const [showChat, setShowChat] = useState(true);
 
   useEffect(() => {
-    // Optional: If you need to adjust fullscreen behavior or some other logic
-  }, []);
+    if (fileFromState) {
+      localStorage.setItem("lastUploadedFile", fileFromState);
 
-  if (!file) {
+      const recentPapers = JSON.parse(localStorage.getItem("recentPapers") || "[]");
+
+      const newPaper = {
+        id: idFromState,
+        title: titleFromState,
+        link: fileFromState,
+        openedAt: new Date().toISOString(),
+      };
+
+      const updatedPapers = [
+        newPaper,
+        ...recentPapers.filter((p: any) => p.link !== fileFromState),
+      ].slice(0, 5); // keep only last 5
+
+      localStorage.setItem("recentPapers", JSON.stringify(updatedPapers));
+    }
+  }, [fileFromState, idFromState, titleFromState]);
+
+  if (!fileUrl) {
     return <div className="text-center text-gray-500">No PDF available</div>;
   }
 
-  const startChat = async () => {
-    console.log("Sending file to start-chat:", file);
-
-    const response = await axiosInstance.post("api/chats/start-chat", {
-      url: file,
-    });
-    return response;
-  };
-
   return (
     <div className="flex overflow-hidden relative w-full h-screen bg-matt-black">
-      {/* PDF iframe */}
-      <iframe src={file} className="w-full h-full" title="PDF Viewer" />
+      {/* PDF Viewer */}
+      <iframe src={fileUrl} className="w-full h-full" title="PDF Viewer" />
 
       {/* Open in New Tab Button */}
-      <div
-        className={`absolute transition-all duration-300 ${
-          showChat ? "top-2 left-174" : "top-2 left-357"
-        }`}
-      >
-        <a href={file} target="_blank" rel="noopener noreferrer">
+      <div className={`absolute transition-all duration-300 ${showChat ? "top-2 left-174" : "top-2 left-357"}`}>
+        <a href={fileUrl} target="_blank" rel="noopener noreferrer">
           <button className="new-tab-button text-white px-4 py-2 rounded shadow-md">
             Open in New Tab
           </button>
         </a>
       </div>
 
-      {/* Second iframe with hidden UI */}
-      {showChat ? (
+      {/* Chat */}
+      {showChat && (
         <div className="flex flex-col transition-all duration-300">
           <div className="w-2xl">
-            <Chat startChat={startChat} />
+            <Chat startChat={() => {}} />
           </div>
         </div>
-      ) : (
-        ""
       )}
-      <div
-        className={`absolute transition-all duration-300 ${
-          showChat ? "top-2 right-10" : "bottom-2 right-10"
-        }`}
-      >
+
+      {/* Toggle Chat Button */}
+      <div className={`absolute transition-all duration-300 ${showChat ? "top-2 right-10" : "bottom-2 right-10"}`}>
         <button
           className="new-tab-button text-white px-4 py-2 rounded shadow-md transition-all duration-300"
-          onClick={() => {
-            setShowChat(!showChat);
-          }}
+          onClick={() => setShowChat(!showChat)}
         >
-          {!showChat ? "Show chat" : "Hide chat"}
+          {showChat ? "Hide Chat" : "Show Chat"}
         </button>
       </div>
     </div>
