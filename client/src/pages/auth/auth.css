@@ -1,0 +1,10 @@
+.auth-background {
+  background-color: #fdfdfd;
+}
+
+.input-box {
+  border-color: #dfe6eb;
+}
+.input-box:focus-within {
+  border-color: var(--color-box-blue);
+}
